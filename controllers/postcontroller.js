@@ -25,8 +25,11 @@ const update = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  const id = req.params.id;
-  res.json("Eliminazione del post" + id);
+  const id = parseInt(req.params.id);
+
+  blogPost = blogPost.filter((currentPost) => currentPost.id !== id);
+  console.log("Lista aggiornata:", blogPost);
+  res.status(204).send();
 };
 
 module.exports = { index, show, create, update, destroy };
