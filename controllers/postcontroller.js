@@ -1,11 +1,16 @@
 const blogPost = require("../data/blogPosts.js");
 
+// INDEX
+
 const index = (req, res) => {
   res.json({
     description: "Lettura della lista dei post",
     data: blogPost,
   });
 };
+
+//SHOW
+
 const show = (req, res) => {
   const id = parseInt(req.params.id);
   const post = blogPost.find((currentPost) => currentPost.id === id);
@@ -25,14 +30,21 @@ const show = (req, res) => {
     data: post,
   });
 };
-const create = (req, res) => {
+
+// STORE
+
+const store = (req, res) => {
   res.json("Creazione del post");
 };
+
+// UPDATE
 
 const update = (req, res) => {
   const id = req.params.id;
   res.json("Modifica totale del post" + id);
 };
+
+//DESTROY
 
 const destroy = (req, res) => {
   const id = parseInt(req.params.id);
@@ -58,4 +70,4 @@ const destroy = (req, res) => {
   // console.log(tags);
 };
 
-module.exports = { index, show, create, update, destroy };
+module.exports = { index, show, store, update, destroy };

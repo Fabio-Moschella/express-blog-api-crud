@@ -6,8 +6,8 @@ post.get("", postController.index);
 // ROUT PER I DETTAGLI DEL BLOG(SHOW)
 post.get("/:id", postController.show);
 
-//ROUT PER LA CREAZIONE DEL POST(CREATE)
-post.post("", postController.create);
+//ROUT PER LA CREAZIONE DEL POST(STORE)
+post.post("", postController.store);
 
 //ROUT PER L'UPDATE DEL POST(UPDATE)
 post.put("/:id", postController.update);

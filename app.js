@@ -5,7 +5,7 @@ const postRouter = require("./routers/posts.js");
 
 //STATIC ASSEST
 app.use(express.static("pubblic"));
-
+app.use(express.json());
 //ROUTERS
 app.use("/post", postRouter);
 
