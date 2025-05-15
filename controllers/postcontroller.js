@@ -10,6 +10,9 @@ const show = (req, res) => {
   const id = parseInt(req.params.id);
   const post = blogPost.find((currentPost) => currentPost.id === id);
   console.log(post);
+
+  // CHECK
+
   res.json({
     description: "Lettura del dettaglio dei post" + id,
     data: post,
@@ -27,9 +30,16 @@ const update = (req, res) => {
 const destroy = (req, res) => {
   const id = parseInt(req.params.id);
 
-  blogPost = blogPost.filter((currentPost) => currentPost.id !== id);
+  const post = blogPost.find((currentPost) => currentPost.id === id);
+  //CHECK POST ESISTENTE
+  const postIndex = blogPost.indexOf(post);
+  console.log(postIndex);
+  blogPost.splice(postIndex, 1);
   console.log("Lista aggiornata:", blogPost);
+
   res.status(204).send();
+  const tags = req.query.tags;
+  // console.log(tags);
 };
 
 module.exports = { index, show, create, update, destroy };
