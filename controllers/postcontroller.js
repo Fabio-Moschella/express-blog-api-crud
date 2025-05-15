@@ -12,7 +12,14 @@ const show = (req, res) => {
   console.log(post);
 
   // CHECK
-
+  if (!post) {
+    res.status(404);
+    req.json({
+      error: 404,
+      message: "post not found",
+    });
+    return;
+  }
   res.json({
     description: "Lettura del dettaglio dei post" + id,
     data: post,
@@ -36,6 +43,15 @@ const destroy = (req, res) => {
   console.log(postIndex);
   blogPost.splice(postIndex, 1);
   console.log("Lista aggiornata:", blogPost);
+  //CHECK
+  if (!post) {
+    res.status(404);
+    req.json({
+      error: 404,
+      message: "post inesistente",
+    });
+    return;
+  }
 
   res.status(204).send();
   const tags = req.query.tags;
