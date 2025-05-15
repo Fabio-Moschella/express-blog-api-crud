@@ -34,14 +34,30 @@ const show = (req, res) => {
 // STORE
 
 const store = (req, res) => {
-  console.log(req.body);
-  res.json("Creazione del post");
+  const { title, content, image, tags } = req.body;
+  const lastId = blogPost[blogPost.length - 1].id;
+  const newId = lastId + 1;
+  const newPost = { id: newId, title, content, image, tags };
+  blogPost.push(newPost);
+
+  res.status(201).json("Creazione del post" + newPost);
 };
 
 // UPDATE
 
 const update = (req, res) => {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
+  const post = blogPost.find((currentPost) => currentPost.id === id);
+
+  //CHECK
+  if (!post) {
+    res.status(404);
+    req.json({
+      error: 404,
+      message: "post inesistente",
+    });
+    return;
+  }
   res.json("Modifica totale del post" + id);
 };
 
@@ -49,13 +65,13 @@ const update = (req, res) => {
 
 const destroy = (req, res) => {
   const id = parseInt(req.params.id);
-
   const post = blogPost.find((currentPost) => currentPost.id === id);
+
   //CHECK POST ESISTENTE
   const postIndex = blogPost.indexOf(post);
-  console.log(postIndex);
   blogPost.splice(postIndex, 1);
   console.log("Lista aggiornata:", blogPost);
+
   //CHECK
   if (!post) {
     res.status(404);
@@ -67,8 +83,6 @@ const destroy = (req, res) => {
   }
 
   res.status(204).send();
-  const tags = req.query.tags;
-  // console.log(tags);
 };
 
 module.exports = { index, show, store, update, destroy };
