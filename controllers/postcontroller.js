@@ -34,6 +34,7 @@ const show = (req, res) => {
 // STORE
 
 const store = (req, res) => {
+  console.log(req.body);
   res.json("Creazione del post");
 };
 
