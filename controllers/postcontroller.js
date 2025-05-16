@@ -46,9 +46,9 @@ const store = (req, res) => {
 // UPDATE
 
 const update = (req, res) => {
-  const id = parseInt(req.params.id);
-  const post = blogPost.find((currentPost) => currentPost.id === id);
-
+  const postId = parseInt(req.params.id);
+  console.log(postId);
+  const post = blogPost.find((currentPost) => currentPost.id === postId);
   //CHECK
   if (!post) {
     res.status(404);
@@ -58,7 +58,15 @@ const update = (req, res) => {
     });
     return;
   }
-  res.json("Modifica totale del post" + id);
+
+  const { title, content, image, tags } = req.body;
+
+  // EFFETTUO LA SOSTITUZIONE
+  const updatePost = { id: postId, title, content, image, tags };
+  const oldPostIndex = blogPost.indexOf(post);
+  blogPost.splice(oldPostIndex, 1, updatePost);
+  res.json(updatePost);
+  res.json("Modifica totale del post" + postId);
 };
 
 //DESTROY
